@@ -1,6 +1,6 @@
 use core::{arch::{global_asm, asm}, hint::unreachable_unchecked};
 
-use crate::{param::{STACK_SIZE, NCPU}, reg::{satp, medeleg, mideleg, sie, pmpaddr0, pmpcfg0, mstatus, mepc, mhartid}};
+use crate::{param::{STACK_SIZE, NCPU}, reg::{satp, medeleg, mideleg, sie, pmpaddr0, pmpcfg0, mstatus, mepc, mhartid, tp}, uart};
 
 #[repr(C, align(16))]
 struct Stack([u8; STACK_SIZE * NCPU]);
@@ -47,6 +47,12 @@ unsafe extern "C" fn rust_start() -> ! {
 }
 
 unsafe fn start() -> ! {
+    if tp::read() == 0 {
+        // main hart, do some config
+        uart::init();
+    } else {
+        // todo
+    }
     // todo
     loop {}
 }

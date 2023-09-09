@@ -95,3 +95,14 @@ pub mod mhartid {
         asm!("csrr tp, mhartid");
     }
 }
+
+pub mod tp {
+    use core::arch::asm;
+
+    #[inline(always)]
+    pub unsafe fn read() -> u64 {
+        let r;
+        asm!("mv {}, tp", out(reg) r);
+        r
+    }
+}
