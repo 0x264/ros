@@ -6,3 +6,4 @@
 mod panic;
 mod start;
 mod param;
+mod reg;
