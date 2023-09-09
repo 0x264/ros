@@ -13,7 +13,7 @@ SECTIONS {
 
     .rodata : {
         *(.srodata .srodata.*)
-        *(.rodata .rodata)
+        *(.rodata .rodata.*)
     }
 
     . = ALIGN(4K);
