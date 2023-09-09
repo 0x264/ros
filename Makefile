@@ -1,4 +1,14 @@
-KERNEL = target/riscv64gc-unknown-none-elf/debug/kernel
+BUILDTYPE = debug
+
+ifeq ($(BUILDTYPE), debug)
+CARGOFLAGS =
+else ifeq ($(BUILDTYPE), release)
+CARGOFLAGS = --release
+else
+$(error "build type only support debug and release, found: $(BUILDTYPE)")
+endif
+
+KERNEL = target/riscv64gc-unknown-none-elf/$(BUILDTYPE)/kernel
 
 QEMU = qemu-system-riscv64
 
@@ -12,7 +22,7 @@ run: kernel
 	$(QEMU) $(QEMUFLAGS) -kernel $(KERNEL)
 
 kernel:
-	cargo build
+	cargo build $(CARGOFLAGS)
 
 clean:
 	cargo clean
