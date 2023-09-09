@@ -1,3 +1,5 @@
+.attribute arch, "rv64gc" #maybe llvm's bug: https://github.com/rust-lang/rust/issues/80608
+
 .section .text.entry
 .balign 16
 .global _entry
