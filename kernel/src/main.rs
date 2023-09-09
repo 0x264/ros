@@ -2,6 +2,10 @@
 #![no_main]
 
 #![feature(asm_const)]
+#![feature(format_args_nl)]
+
+#[macro_use]
+mod print;
 
 mod panic;
 mod start;
