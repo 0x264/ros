@@ -5,3 +5,8 @@ resolver = "2"
 members = [
     "kernel"
 ]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
