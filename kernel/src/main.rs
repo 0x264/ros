@@ -13,3 +13,4 @@ mod param;
 mod reg;
 mod memlayout;
 mod uart;
+mod alloc;
