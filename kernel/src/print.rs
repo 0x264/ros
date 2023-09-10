@@ -6,7 +6,10 @@ struct Printer;
 
 impl Write for Printer {
     fn write_str(&mut self, s: &str) -> fmt::Result {
-        s.bytes().for_each(uart::write);
+        // if uart is not available, just ignore print, not return error
+        if uart::is_available() {
+            s.bytes().for_each(uart::write);
+        }
         Ok(())
     }
 }

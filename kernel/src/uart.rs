@@ -1,6 +1,12 @@
 use core::hint;
 use crate::memlayout::UART0;
 
+static mut HAS_INITED: bool = false;
+
+pub fn is_available() -> bool {
+    unsafe {HAS_INITED}
+}
+
 pub fn init() {
     // disable interrupt first
     ier::disable_interrupt();
@@ -19,6 +25,8 @@ pub fn init() {
 
     // enable interrupt
     ier::enable_rt_interrupt();
+
+    unsafe {HAS_INITED = true;}
 }
 
 pub fn read() -> u8 {
