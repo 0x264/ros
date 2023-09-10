@@ -22,18 +22,21 @@ impl InplaceLinkList {
     }
 
     pub unsafe fn push(&mut self, item: *mut usize) {
-        let mut node = item as *mut Node;
+        if item == ptr::null_mut() {
+            return;
+        }
+        let node = item as *mut Node;
         (*node).next = self.head;
         self.head = node;
     }
 
-    pub unsafe fn pop(&mut self) -> Option<*mut usize> {
+    pub unsafe fn pop(&mut self) -> *mut usize {
         if self.is_empty() {
-            None
+            ptr::null_mut()
         } else {
             let node = self.head;
             self.head = (*node).next;
-            Some(node as *mut usize)
+            node as *mut usize
         }
     }
 
